@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, viewport-fit=cover"
+    >
+
+    <meta name="theme-color" content="#080808">
+    <meta name="color-scheme" content="dark">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="RATED">
+    <meta name="application-name" content="RATED">
+    <meta name="description" content="Rate hip-hop albums, song by song.">
+
+    <title>RATED — Album Ratings</title>
+    <link rel="icon" type="image/png" href="assets/logo.png">
+    <link rel="apple-touch-icon" href="assets/logo.png">
+    <link rel="manifest" href="manifest.webmanifest">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link rel="preconnect" href="https://cdn-images.dzcdn.net" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/style.css?v=24"
+    >
+
+    <script src="js/albums.js?v=23" defer></script>
+    <script src="js/artistPhotos.js?v=23" defer></script>
+    <script src="js/globalRatings.js?v=23" defer></script>
+    <script src="js/script.js?v=24" defer></script>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
+
+<header class="navbar">
+
+
+    <div
+        class="logo"
+        onclick="showHome()"
+        aria-label="RATED"
+    >
+        <img
+            src="assets/logo-l.png"
+            alt="RATED"
+        >
+    </div>
+
+
+    <div class="search-container">
+
+        <span class="search-icon">
+            ⌕
+        </span>
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search albums, artists..."
+            oninput="searchAlbums()"
+        >
+
+    </div>
+
+
+    <nav class="nav-links">
+
+        <button
+            onclick="showHome()"
+            class="nav-button"
+            id="navHome"
+        >
+            Home
+        </button>
+
+
+        <button
+            onclick="showArtists()"
+            class="nav-button"
+            id="navArtists"
+        >
+            ◈ Artists
+        </button>
+
+
+        <button
+            onclick="handleProtectedPage('saved')"
+            class="nav-button"
+            id="navSaved"
+        >
+            ♡ Saved
+        </button>
+
+
+        <button
+            onclick="showPerfectAlbums()"
+            class="nav-button"
+            id="navPerfect"
+        >
+            ★ 10/10
+        </button>
+
+
+        <button
+            onclick="showFriends()"
+            class="nav-button"
+            id="navFriends"
+        >
+            ◉ Friends
+        </button>
+
+
+        <button
+            onclick="openAuth()"
+            class="profile-button"
+            id="profileButton"
+        >
+            Login
+        </button>
+
+    </nav>
+
+</header>
+
+
+<!-- =====================================================
+     MAIN APPLICATION
+===================================================== -->
+
+<main id="app">
+
+
+<!-- =====================================================
+     HOME
+===================================================== -->
+
+<section
+    id="homePage"
+    class="page"
+>
+
+    <div class="page-header page-header-row">
+
+        <div>
+
+            <p class="eyebrow">
+                YOUR MUSIC DATABASE
+            </p>
+
+            <h1>
+                Rate albums.
+            </h1>
+
+            <p class="subtitle">
+                Listen. Judge. Rank.
+            </p>
+
+        </div>
+
+        <div
+            class="sort-wrap"
+            id="albumSortWrap"
+        >
+
+            <button
+                type="button"
+                class="sort-button"
+                onclick="toggleSortMenu(event)"
+            >
+                Sort · <span id="sortLabel">Latest</span>
+            </button>
+
+            <div
+                id="sortOptions"
+                class="sort-options hidden"
+            >
+
+                <button
+                    type="button"
+                    class="sort-option"
+                    data-sort="latest"
+                    onclick="setAlbumSort('latest')"
+                >
+                    Latest
+                </button>
+
+                <button
+                    type="button"
+                    class="sort-option"
+                    data-sort="new"
+                    onclick="setAlbumSort('new')"
+                >
+                    New
+                </button>
+
+                <button
+                    type="button"
+                    class="sort-option"
+                    data-sort="year"
+                    onclick="setAlbumSort('year')"
+                >
+                    By year
+                </button>
+
+                <button
+                    type="button"
+                    class="sort-option"
+                    data-sort="highest"
+                    onclick="setAlbumSort('highest')"
+                >
+                    Highest yours
+                </button>
+
+                <button
+                    type="button"
+                    class="sort-option"
+                    data-sort="lowest"
+                    onclick="setAlbumSort('lowest')"
+                >
+                    Lowest yours
+                </button>
+
+                <button
+                    type="button"
+                    class="sort-option"
+                    data-sort="highest-global"
+                    onclick="setAlbumSort('highest-global')"
+                >
+                    Highest global
+                </button>
+
+                <button
+                    type="button"
+                    class="sort-option"
+                    data-sort="lowest-global"
+                    onclick="setAlbumSort('lowest-global')"
+                >
+                    Lowest global
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div
+        id="albumGrid"
+        class="album-list"
+    ></div>
+
+</section>
+
+
+<!-- =====================================================
+     ALBUM PAGE
+===================================================== -->
+
+<section
+    id="albumPage"
+    class="page hidden"
+>
+
+
+    <button
+        class="back-button"
+        onclick="goBackFromAlbum()"
+    >
+        ← Back
+    </button>
+
+
+    <div id="albumHero"></div>
+
+
+    <div class="rating-section">
+
+        <div class="rating-header">
+
+            <div>
+
+                <span class="small-label">
+                    ALBUM SCORE
+                </span>
+
+                <div
+                    id="currentAlbumScore"
+                    class="big-score"
+                >
+                    —
+                </div>
+
+            </div>
+
+
+            <div class="rating-header-actions">
+
+                <div class="rating-instructions">
+                    Drag to rate this song
+                </div>
+
+                <button
+                    type="button"
+                    class="reset-album-button hidden"
+                    onclick="resetAlbumRating()"
+                >
+                    Reset ratings
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="rainbow-rating">
+
+            <span>
+                10.0
+            </span>
+
+            <div class="rainbow-line">
+                <div
+                    id="rainbowDot"
+                    class="rainbow-dot"
+                ></div>
+            </div>
+
+            <span>
+                0.0
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="songs-layout">
+
+
+        <!-- SONGS -->
+
+        <div class="songs-column">
+
+            <div class="songs-header">
+
+                <span>
+                    TRACK
+                </span>
+
+                <span>
+                    YOUR SCORE
+                </span>
+
+                <span>
+                    FRIENDS
+                </span>
+
+                <span>
+                    GLOBAL
+                </span>
+
+            </div>
+
+
+            <div id="songsList"></div>
+
+            <div
+                id="songRater"
+                class="song-rater"
+                onclick="event.stopPropagation()"
+            >
+
+                <div class="song-rater-top">
+
+                    <span class="song-rater-label">
+                        YOUR RATING
+                    </span>
+
+                    <span
+                        id="inlineRatingValue"
+                        class="song-rater-value"
+                    >
+                        5.0
+                    </span>
+
+                </div>
+
+                <div
+                    id="songRateScale"
+                    class="rainbow-rating song-rater-scale"
+                >
+
+                    <button
+                        type="button"
+                        class="song-rate-end"
+                        onclick="setSongRatingEnd(10)"
+                    >
+                        10.0
+                    </button>
+
+                    <div
+                        id="songRateLine"
+                        class="rainbow-line song-rate-line"
+                    >
+
+                        <div
+                            id="songRateDot"
+                            class="rainbow-dot visible"
+                        ></div>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        class="song-rate-end"
+                        onclick="setSongRatingEnd(0)"
+                    >
+                        0.0
+                    </button>
+
+                </div>
+
+                <button
+                    class="done-button"
+                    id="inlineRatingActionButton"
+                    onclick="nextSong()"
+                >
+                    Next Song →
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- RATING PANEL -->
+
+        <aside class="rating-panel">
+
+
+            <div class="rating-panel-title">
+                YOUR RATING
+            </div>
+
+
+            <div
+                id="ratingValue"
+                class="rating-value"
+            >
+                5.0
+            </div>
+
+
+            <div
+                id="dial"
+                class="dial-wrapper"
+            >
+
+                <svg
+                    class="dial-svg"
+                    viewBox="0 0 230 125"
+                    aria-hidden="true"
+                >
+
+                    <path
+                        class="dial-track-bg"
+                        d="M 15 115 A 100 100 0 0 1 215 115"
+                        fill="none"
+                    ></path>
+
+                    <path
+                        id="dialArc"
+                        class="dial-track-fill"
+                        d="M 15 115 A 100 100 0 0 1 215 115"
+                        pathLength="100"
+                        fill="none"
+                    ></path>
+
+                </svg>
+
+                <div
+                    id="dialDot"
+                    class="dial-dot"
+                ></div>
+
+            </div>
+
+
+            <div class="dial-scale">
+
+                <span>
+                    0.0
+                </span>
+
+                <span>
+                    5.0
+                </span>
+
+                <span>
+                    10.0
+                </span>
+
+            </div>
+
+
+            <div class="rating-buttons">
+
+                <button
+                    class="done-button"
+                    id="ratingActionButton"
+                    onclick="nextSong()"
+                >
+                    Next Song →
+                </button>
+
+                <button
+                    type="button"
+                    class="reset-album-button hidden"
+                    onclick="resetAlbumRating()"
+                >
+                    Reset ratings
+                </button>
+
+            </div>
+
+
+            <p
+                class="guest-note"
+                id="guestNote"
+            >
+                You are rating as a guest.
+                Ratings aren't permanently saved.
+            </p>
+
+
+        </aside>
+
+    </div>
+
+
+    <!-- ALBUM RESULT -->
+
+    <div
+        id="albumResult"
+        class="album-result hidden"
+    >
+
+        <p class="small-label">
+            ALBUM COMPLETE
+        </p>
+
+
+        <h2>
+            Your album score
+        </h2>
+
+
+        <div
+            id="finalAlbumScore"
+            class="final-score"
+        >
+            0.0
+        </div>
+
+
+        <p id="albumSaveMessage">
+            Create an account to permanently save this rating.
+        </p>
+
+
+        <button
+            class="save-album-button"
+            onclick="handleSaveAlbum()"
+        >
+            Save Album
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ARTISTS
+===================================================== -->
+<section
+    id="artistsPage"
+    class="page hidden"
+>
+    <div class="page-header page-header-row">
+
+        <div>
+
+            <p class="eyebrow">
+                DISCOGRAPHY
+            </p>
+
+            <h1>
+                Artists
+            </h1>
+
+            <p class="subtitle">
+                Your average, friends, and global — from every rated album.
+            </p>
+
+        </div>
+
+        <div
+            class="sort-wrap"
+            id="artistSortWrap"
+        >
+
+            <button
+                type="button"
+                class="sort-button"
+                onclick="toggleArtistSortMenu(event)"
+            >
+                Sort · <span id="artistSortLabel">Highest yours</span>
+            </button>
+
+            <div
+                id="artistSortOptions"
+                class="sort-options hidden"
+            >
+
+                <button
+                    type="button"
+                    class="sort-option"
+                    data-sort="az"
+                    onclick="setArtistSort('az')"
+                >
+                    Alphabetical A–Z
+                </button>
+
+                <button
+                    type="button"
+                    class="sort-option"
+                    data-sort="za"
+                    onclick="setArtistSort('za')"
+                >
+                    Alphabetical Z–A
+                </button>
+
+                <button
+                    type="button"
+                    class="sort-option"
+                    data-sort="highest"
+                    onclick="setArtistSort('highest')"
+                >
+                    Highest yours
+                </button>
+
+                <button
+                    type="button"
+                    class="sort-option"
+                    data-sort="lowest"
+                    onclick="setArtistSort('lowest')"
+                >
+                    Lowest yours
+                </button>
+
+                <button
+                    type="button"
+                    class="sort-option"
+                    data-sort="highest-global"
+                    onclick="setArtistSort('highest-global')"
+                >
+                    Highest global
+                </button>
+
+                <button
+                    type="button"
+                    class="sort-option"
+                    data-sort="lowest-global"
+                    onclick="setArtistSort('lowest-global')"
+                >
+                    Lowest global
+                </button>
+
+                <button
+                    type="button"
+                    class="sort-option"
+                    data-sort="highest-friends"
+                    onclick="setArtistSort('highest-friends')"
+                >
+                    Highest friends
+                </button>
+
+                <button
+                    type="button"
+                    class="sort-option"
+                    data-sort="lowest-friends"
+                    onclick="setArtistSort('lowest-friends')"
+                >
+                    Lowest friends
+                </button>
+
+                <button
+                    type="button"
+                    class="sort-option"
+                    data-sort="albums"
+                    onclick="setArtistSort('albums')"
+                >
+                    Most albums
+                </button>
+
+                <button
+                    type="button"
+                    class="sort-option"
+                    data-sort="latest"
+                    onclick="setArtistSort('latest')"
+                >
+                    Latest release
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div
+        id="artistsList"
+        class="album-list"
+    ></div>
+</section>
+<!-- =====================================================
+     ARTIST DETAIL
+===================================================== -->
+<section
+    id="artistPage"
+    class="page hidden"
+>
+    <button
+        class="back-button"
+        onclick="showArtists()"
+    >
+        ← Artists
+    </button>
+    <div id="artistHero"></div>
+    <div
+        id="artistAlbums"
+        class="album-list"
+    ></div>
+</section>
+
+
+<!-- =====================================================
+     SAVED PAGE
+===================================================== -->
+
+<section
+    id="savedPage"
+    class="page hidden"
+>
+
+    <div class="page-header">
+
+        <p class="eyebrow">
+            YOUR COLLECTION
+        </p>
+
+        <h1>
+            Saved albums
+        </h1>
+
+    </div>
+
+
+    <div
+        id="savedAlbums"
+        class="album-list"
+    ></div>
+
+</section>
+
+
+<!-- =====================================================
+     10/10
+===================================================== -->
+
+<section
+    id="perfectPage"
+    class="page hidden"
+>
+
+    <div class="page-header">
+
+        <p class="eyebrow">
+            YOUR BEST
+        </p>
+
+        <h1>
+            10/10 albums
+        </h1>
+
+    </div>
+
+
+    <div
+        id="perfectAlbums"
+        class="album-list"
+    ></div>
+
+</section>
+
+
+<!-- =====================================================
+     FRIENDS
+===================================================== -->
+
+<section
+    id="friendsPage"
+    class="page hidden"
+>
+
+    <div class="page-header">
+
+        <p class="eyebrow">
+            SOCIAL
+        </p>
+
+        <h1>
+            Friends
+        </h1>
+
+        <p class="subtitle">
+            Search usernames, follow people, and see what they rate highest.
+        </p>
+
+    </div>
+
+
+    <div class="friends-search-wrap">
+
+        <span class="search-icon">
+            ⌕
+        </span>
+
+        <input
+            id="friendSearchInput"
+            type="search"
+            placeholder="Search usernames..."
+            autocomplete="off"
+            oninput="searchFriends()"
+        >
+
+    </div>
+
+
+    <div id="friendSearchResults"></div>
+
+
+    <h2
+        id="friendsListTitle"
+        class="friends-section-title"
+    >
+        Following
+    </h2>
+
+
+    <div
+        id="friendsList"
+        class="friends-container"
+    ></div>
+
+</section>
+
+
+<section
+    id="friendProfilePage"
+    class="page hidden"
+>
+
+    <button
+        class="back-button"
+        onclick="showFriends()"
+    >
+        ← Friends
+    </button>
+
+
+    <div id="friendProfileHero"></div>
+
+
+    <h2 class="friends-section-title">
+        Highest rated albums
+    </h2>
+
+    <div
+        id="friendTopAlbums"
+        class="album-list"
+    ></div>
+
+
+    <h2 class="friends-section-title">
+        Highest rated artists
+    </h2>
+
+    <div
+        id="friendTopArtists"
+        class="album-list"
+    ></div>
+
+</section>
+
+
+</main>
+
+
+<!-- =====================================================
+     AUTH MODAL
+===================================================== -->
+
+<div
+    id="authModal"
+    class="modal-overlay hidden"
+>
+
+
+    <div class="auth-modal">
+
+
+        <button
+            class="modal-close"
+            onclick="closeAuth()"
+        >
+            ×
+        </button>
+
+
+        <div class="auth-logo">
+            <img
+                src="assets/logo-l.png"
+                alt="RATED"
+            >
+        </div>
+
+
+        <h2 id="authTitle">
+            Welcome back
+        </h2>
+
+
+        <p
+            class="auth-subtitle"
+            id="authSubtitle"
+        >
+            Login to save your ratings.
+        </p>
+
+
+        <!-- LOGIN -->
+
+        <form
+            id="loginForm"
+            onsubmit="login(event)"
+        >
+
+
+            <label>
+                Email
+            </label>
+
+            <input
+                id="loginEmail"
+                type="email"
+                placeholder="you@example.com"
+                required
+            >
+
+
+            <label>
+                Password
+            </label>
+
+            <input
+                id="loginPassword"
+                type="password"
+                placeholder="Password"
+                required
+            >
+
+
+            <button
+                class="auth-submit"
+                type="submit"
+            >
+                Login
+            </button>
+
+
+            <p class="auth-switch">
+
+                Don't have an account?
+
+                <button
+                    type="button"
+                    onclick="showRegister()"
+                >
+                    Create one
+                </button>
+
+            </p>
+
+            <p class="auth-switch">
+                Before launch?
+                <a href="waitlist.html">Get on the list</a>
+            </p>
+
+        </form>
+
+
+        <!-- REGISTER -->
+
+        <form
+            id="registerForm"
+            class="hidden"
+            onsubmit="register(event)"
+        >
+
+
+            <label>
+                Username
+            </label>
+
+            <input
+                id="registerUsername"
+                type="text"
+                placeholder="Username"
+                minlength="3"
+                maxlength="30"
+                required
+            >
+
+
+            <label>
+                Email
+            </label>
+
+            <input
+                id="registerEmail"
+                type="email"
+                placeholder="you@example.com"
+                required
+            >
+
+
+            <label>
+                Password
+            </label>
+
+            <input
+                id="registerPassword"
+                type="password"
+                placeholder="At least 8 characters"
+                minlength="8"
+                required
+            >
+
+
+            <label>
+                Profile picture
+            </label>
+
+            <input
+                id="registerPfp"
+                type="file"
+                accept="image/*"
+            >
+
+
+            <button
+                class="auth-submit"
+                type="submit"
+            >
+                Create Account
+            </button>
+
+
+            <p class="auth-switch">
+
+                Already have an account?
+
+                <button
+                    type="button"
+                    onclick="showLogin()"
+                >
+                    Login
+                </button>
+
+            </p>
+
+        </form>
+
+
+        <p
+            id="authMessage"
+            class="auth-message"
+        ></p>
+
+
+    </div>
+
+</div>
+
+
+<nav class="app-tabbar" aria-label="App">
+
+    <button
+        type="button"
+        class="tab-button active"
+        id="tabHome"
+        onclick="showHome()"
+    >
+        <span class="tab-icon">⌂</span>
+        Home
+    </button>
+
+    <button
+        type="button"
+        class="tab-button"
+        id="tabArtists"
+        onclick="showArtists()"
+    >
+        <span class="tab-icon">◈</span>
+        Artists
+    </button>
+
+    <button
+        type="button"
+        class="tab-button"
+        id="tabSaved"
+        onclick="handleProtectedPage('saved')"
+    >
+        <span class="tab-icon">♡</span>
+        Saved
+    </button>
+
+    <button
+        type="button"
+        class="tab-button"
+        id="tabPerfect"
+        onclick="showPerfectAlbums()"
+    >
+        <span class="tab-icon">★</span>
+        10/10
+    </button>
+
+    <button
+        type="button"
+        class="tab-button"
+        id="tabFriends"
+        onclick="showFriends()"
+    >
+        <span class="tab-icon">◉</span>
+        Friends
+    </button>
+
+</nav>
+
+
+</body>
+
+</html> 

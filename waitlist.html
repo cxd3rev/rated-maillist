@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, viewport-fit=cover"
+    >
+    <meta name="theme-color" content="#080808">
+    <meta name="color-scheme" content="dark">
+    <title>RATED — Get on the list</title>
+    <meta
+        name="description"
+        content="Join the RATED waitlist. We'll email you at launch. Early believers get a gold star."
+    >
+    <meta property="og:title" content="RATED — Get on the list">
+    <meta
+        property="og:description"
+        content="The hip-hop rating app. Join the waitlist. We'll hit your inbox at launch."
+    >
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <link rel="icon" type="image/png" href="assets/logo.png?v=9">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+    <link rel="stylesheet" href="css/waitlist.css?v=9">
+</head>
+
+<body>
+    <div class="glow glow-pink" aria-hidden="true"></div>
+    <div class="glow glow-gold" aria-hidden="true"></div>
+
+    <main class="shell">
+        <p class="brand">
+            <img src="assets/logo-l.png?v=9" alt="RATED">
+        </p>
+        <p id="socialProof" class="proof" hidden></p>
+
+        <section id="signupCard" class="card">
+            <p class="kicker">Early access</p>
+            <h1>Save your seat for launch.</h1>
+            <p class="lead">
+                We'll email you the day RATED goes live.
+            </p>
+
+            <form id="waitlistForm" novalidate>
+                <label for="username">Username</label>
+                <input
+                    id="username"
+                    name="username"
+                    type="text"
+                    autocomplete="username"
+                    autocapitalize="off"
+                    spellcheck="false"
+                    maxlength="30"
+                    required
+                    placeholder="yourname"
+                >
+
+                <label for="email">Email</label>
+                <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    inputmode="email"
+                    autocomplete="email"
+                    autocapitalize="off"
+                    required
+                    placeholder="you@email.com"
+                >
+
+                <label for="password">Password</label>
+                <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    autocomplete="new-password"
+                    minlength="8"
+                    required
+                    placeholder="At least 8 characters"
+                >
+
+                <div class="lists">
+                    <label class="check">
+                        <input type="checkbox" checked disabled>
+                        Email me at launch
+                    </label>
+                    <label class="check">
+                        <input id="updatesList" type="checkbox" checked>
+                        Email me product news
+                    </label>
+                </div>
+
+                <p id="formError" class="error" hidden></p>
+
+                <button id="submitButton" type="submit">
+                    Join the waitlist
+                </button>
+            </form>
+
+            <p class="fine">We never email your password.</p>
+        </section>
+
+        <section id="thanksCard" class="card thanks" hidden>
+            <p class="kicker">You're in</p>
+            <h1 id="thanksTitle">You're on the list.</h1>
+            <p id="thanksBody" class="lead"></p>
+            <p class="stamp">See you at the drop.</p>
+        </section>
+    </main>
+
+    <script src="js/waitlist.js?v=7"></script>
+</body>
+
+</html>
