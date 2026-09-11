@@ -1,0 +1,278 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    font-family: Inter, system-ui, sans-serif;
+    background: #080808;
+    color: #f4f4f4;
+    -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+    background: rgba(255, 47, 146, 0.28);
+    color: #fff;
+}
+
+.glow {
+    position: fixed;
+    pointer-events: none;
+}
+
+.glow-pink {
+    width: min(90vw, 380px);
+    height: min(90vw, 380px);
+    left: 50%;
+    top: -90px;
+    transform: translateX(-50%);
+    background: radial-gradient(circle, rgba(255, 47, 146, 0.2), transparent 70%);
+}
+
+.glow-gold {
+    width: 180px;
+    height: 180px;
+    right: -50px;
+    bottom: 6%;
+    background: radial-gradient(circle, rgba(245, 197, 24, 0.08), transparent 70%);
+}
+
+.shell {
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: min(100%, 420px);
+    margin: 0 auto;
+    padding: calc(env(safe-area-inset-top) + 12px) 18px calc(env(safe-area-inset-bottom) + 14px);
+}
+
+.brand {
+    position: relative;
+    width: 220px;
+    height: 128px;
+    overflow: hidden;
+    margin: 0 auto 8px;
+    flex-shrink: 0;
+}
+
+.brand img {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 220px;
+    height: 220px;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+}
+
+.card {
+    background: rgba(16, 16, 16, 0.92);
+    border: 1px solid #2a2a2a;
+    border-radius: 20px;
+    padding: 18px 18px 16px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+}
+
+.kicker {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #ff4fa3;
+    margin-bottom: 6px;
+}
+
+h1 {
+    font-size: 1.55rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1.15;
+    color: #fff;
+}
+
+.lead {
+    margin-top: 6px;
+    color: #c8c8c8;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+.proof {
+    margin: 0 auto 10px;
+    text-align: center;
+    color: #f0d27a;
+    font-size: 0.88rem;
+    font-weight: 600;
+    line-height: 1.3;
+    flex-shrink: 0;
+}
+
+form {
+    display: grid;
+    gap: 5px;
+    margin-top: 14px;
+}
+
+label {
+    margin-top: 4px;
+    font-size: 0.86rem;
+    font-weight: 600;
+    color: #e8e8e8;
+}
+
+form > label:first-of-type {
+    margin-top: 0;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    height: 44px;
+    border: 1px solid #333;
+    border-radius: 12px;
+    background: #101010;
+    color: #fff;
+    padding: 0 14px;
+    font: 500 16px Inter, system-ui, sans-serif;
+}
+
+input::placeholder {
+    color: #7a7a7a;
+}
+
+input:focus {
+    outline: none;
+    border-color: #ff2f92;
+    box-shadow: 0 0 0 3px rgba(255, 47, 146, 0.18);
+}
+
+.lists {
+    margin-top: 8px;
+    display: grid;
+    gap: 6px;
+}
+
+.check {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 42px;
+    padding: 0 12px;
+    border: 1px solid #2e2e2e;
+    border-radius: 12px;
+    background: #121212;
+    color: #ececec;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.check input {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    accent-color: #ff2f92;
+}
+
+button {
+    margin-top: 6px;
+    height: 48px;
+    border: none;
+    border-radius: 12px;
+    background: #ff2f92;
+    color: #fff;
+    font: 700 1rem Inter, system-ui, sans-serif;
+    cursor: pointer;
+}
+
+button:hover {
+    filter: brightness(1.06);
+}
+
+button:disabled {
+    opacity: 0.65;
+    cursor: wait;
+}
+
+.error {
+    color: #ff8aa3;
+    font-size: 0.88rem;
+    font-weight: 600;
+}
+
+.fine {
+    margin-top: 10px;
+    color: #8f8f8f;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    text-align: center;
+}
+
+.thanks {
+    text-align: left;
+}
+
+.stamp {
+    margin-top: 16px;
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: #ff4fa3;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+@media (min-width: 540px) {
+    .shell {
+        width: 440px;
+    }
+
+    h1 {
+        font-size: 1.85rem;
+    }
+
+    .card {
+        padding: 24px 24px 20px;
+    }
+}
+
+@media (min-height: 780px) {
+    .brand {
+        width: 248px;
+        height: 144px;
+        margin-bottom: 12px;
+    }
+
+    .brand img {
+        width: 248px;
+        height: 248px;
+    }
+
+    .card {
+        padding: 24px 22px 20px;
+    }
+
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+        height: 48px;
+    }
+
+    button {
+        height: 50px;
+    }
+}
